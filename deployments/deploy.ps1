@@ -1,4 +1,4 @@
-﻿Import-Module 'C:\Users\Amy\Desktop\sql sat session\sqlsat_cleveland_2019\session4\PS\deployments\deploy release - part 2 - run on server_working10.ps1'
+﻿Import-Module 'C:\Users\Amy\Documents\GitHub\powershell_for_the_dba\deployments\deploy release - part 2 - run on server_working10.ps1'
 
 
 

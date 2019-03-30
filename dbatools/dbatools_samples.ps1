@@ -28,6 +28,10 @@ get-help DBATools
 Install-Module DBATools -Force
 
 
+Update-Dbatools -Verbose
+
+
+
 #------------------------------------------------------------let's use some of the cmdlets!!!---------------------------------------------------------------
 
 
@@ -73,7 +77,7 @@ foreach ($s in $servers)
 foreach ($s in $servers)
 {
 
-    Get-DbaOrphanUser -SqlInstance $s
+    Get-DbaDbOrphanUser -SqlInstance $s
 
 }
 
@@ -85,11 +89,37 @@ foreach ($s in $servers)
 {
 
     
-    Export-DbaLogin -SqlInstance $s 
+    Export-DbaLogin -SqlInstance $s -ExcludeDatabases
     Export-DbaUser -SqlServer $s -Database 'kragle'
 
 
+
 }
+
+
+#---------------------create your own cmdlet - gather permissions, write them to a table, then pull them out of the table and apply them later-------------------------------
+Import-Module 'C:\Users\Amy\Desktop\sql sat session\sqlsat_chicago_2019\session4\PS\get-permissions.ps1';
+Import-Module 'C:\Users\Amy\Desktop\sql sat session\sqlsat_chicago_2019\session4\PS\apply-permissions.ps1';
+
+$servers = @('SQLKITTEN-II\SQLSERVER2017');
+foreach ($s in $servers)
+{
+
+
+    Write-Host '********************gathering permisisons********************'
+    Get-Permissions -server $s -database 'kragle'
+    
+    Write-Host '********************applying permisisons********************'
+    Apply-Permissions -server $s -database 'kragle'
+
+}
+
+
+
+
+
+
+
 
 <#
 
